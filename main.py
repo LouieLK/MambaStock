@@ -24,7 +24,7 @@ parser.add_argument('--layer', type=int, default=2,
                     help='Num of layers')
 parser.add_argument('--n-test', type=int, default=300,
                     help='Size of test set')
-parser.add_argument('--ts-code', type=str, default='601988',
+parser.add_argument('--ts-code', type=str, default='2330',
                     help='Stock code')                    
 
 args = parser.parse_args()
@@ -47,8 +47,11 @@ def dateinf(series, n_test):
     lt = len(series)
     print('Training start',series[0])
     print('Training end',series[lt-n_test-1])
+    print('Training amount',lt-n_test)
     print('Testing start',series[lt-n_test])
     print('Testing end',series[lt-1])
+    print('Testing amount',n_test)
+
 
 set_seed(args.seed,args.cuda)
 
@@ -95,7 +98,7 @@ def PredictWithData(trainX, trainy, testX):
     yhat = mat.detach().numpy().flatten()
     return yhat
 
-data = pd.read_csv(args.ts_code+'.SH.csv')
+data = pd.read_csv(args.ts_code+'.TW.csv')
 data['trade_date'] = pd.to_datetime(data['trade_date'], format='%Y%m%d')
 close = data.pop('close').values
 ratechg = data['pct_chg'].apply(lambda x:0.01*x).values
