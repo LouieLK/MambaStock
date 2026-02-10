@@ -5,7 +5,7 @@ from sklearn.metrics import mean_squared_error,mean_absolute_error,r2_score
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from mamba import Mamba, MambaConfig
+from src.mamba import Mamba, MambaConfig
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -98,7 +98,7 @@ def PredictWithData(trainX, trainy, testX):
     yhat = mat.detach().numpy().flatten()
     return yhat
 
-data = pd.read_csv(args.ts_code+'.TW.csv')
+data = pd.read_csv('data/'+args.ts_code+'.TW.csv')
 data['trade_date'] = pd.to_datetime(data['trade_date'], format='%Y%m%d')
 close = data.pop('close').values
 ratechg = data['pct_chg'].apply(lambda x:0.01*x).values
