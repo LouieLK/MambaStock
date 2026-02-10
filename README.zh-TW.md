@@ -46,7 +46,9 @@ uv run python main.py
 ### **自定義訓練範例**
 
 針對台積電 (2330.TW) 進行訓練，滑動視窗為 60 天：  
-uv run python main.py \--ts-code 2330.TW \--seq-len 60 \--use-cuda
+```
+uv run python main.py --ts-code 2330.TW --seq-len 60 --use-cuda
+```
 
 ## **⚙️ 選項**
 
@@ -65,6 +67,20 @@ uv run python main.py \--ts-code 2330.TW \--seq-len 60 \--use-cuda
 | \--n-test | int | 365 | 用於測試集（回測）的天數。 |
 | \--wd | float | 1e-5 | 權重衰減 (L2 正則化)。 |
 | \--seed | int | 1 | 用於可重現性的隨機種子。 |
+
+## **👨‍💻 維護者與貢獻**
+
+本專案 Fork 並改進自 [zshicode/MambaStock](https://github.com/zshicode/MambaStock)。本專案由 Louie Huang (GitHub: @LouieLK) 維護。
+
+雖然核心 Mamba 模型架構沿用了原始設計，但本專案致力於將其轉化為生產級 (Production-Ready) 的應用工具，主要差異與貢獻如下：
+* **全球市場支援**: 整合 `yfinance` 支援全球股票（美股、台股、加密貨幣）動態抓取，移除靜態 CSV 依賴。
+* **生產級管線**: 重構為模組化結構 (`src/`, `data/`) 並遷移至 `uv` 進行確定性依賴管理。
+* **進階推論邏輯**: 實作 **滑動視窗** 機制防止前瞻偏誤，並新增 **未來推論** 步驟預測 T+1 價格。
+* **DevOps & 易用性**: 新增穩健的 CLI 參數解析、雙語文件，並簡化 CUDA/CPU 執行流程。
+
+## **🔮 未來規劃 (Roadmap)**
+我計劃在未來版本中加入以下功能，歡迎任何人貢獻：
+* **圖形化介面 (GUI)**: 實作 Streamlit 或 Gradio 儀表板，提供互動式股價視覺化與參數調整。
 
 ## **📚 引用**
 

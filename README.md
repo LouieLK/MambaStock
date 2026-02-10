@@ -44,8 +44,9 @@ uv run python main.py
 ### **Custom Training Example**
 
 Train on TSMC (2330.TW) with a 60-day sliding window:  
-uv run python main.py \--ts-code 2330.TW \--seq-len 60 \--use-cuda
-
+```
+uv run python main.py --ts-code 2330.TW --seq-len 60 --use-cuda
+```
 ## **⚙️ Options**
 
 The model behavior can be customized using command-line arguments. Here is the full list of available options:
@@ -63,6 +64,20 @@ The model behavior can be customized using command-line arguments. Here is the f
 | \--n-test | int | 365 | Number of days to use for the test set (backtesting). |
 | \--wd | float | 1e-5 | Weight decay (L2 regularization). |
 | \--seed | int | 1 | Random seed for reproducibility. |
+
+## **👨‍💻 Maintainer & Contributions**
+
+This project is a fork and enhanced implementation of [zshicode/MambaStock](https://github.com/zshicode/MambaStock). Maintained by Louie Huang (GitHub: @LouieLK).
+
+While the core Mamba architecture preserves the original design, this project focuses on transforming it into a Production-Ready tool. Key differences and contributions include:
+* **Global Market Support**: Integrated `yfinance` to support dynamic data fetching for global stocks (US, Taiwan, Crypto), removing the dependency on static CSV files.
+* **Production-Ready Pipeline**: Refactored the codebase into a modular structure (`src/`, `data/`) and migrated to `uv` for deterministic dependency management.
+* **Advanced Inference Logic**: Implemented a **Sliding Window** mechanism to prevent look-ahead bias and added a dedicated **Future Inference** step to predict the next trading day's price (T+1). 
+* **DevOps & Usability**: Added robust CLI argument parsing, bilingual documentation (English/Chinese), and streamlined CUDA/CPU execution flows.
+
+## **🔮 Roadmap**
+I plan to introduce the following features in future updates. Contributions are welcome!:
+* **Graphical User Interface (GUI)**: Implement Streamlit or Gradio dashboards for interactive visualization and parameter tuning.
 
 ## **📚 Citation**
 
