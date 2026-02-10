@@ -6,7 +6,7 @@ def save_yahoo_to_standard_csv(ts_code):
     將 Yahoo Finance 日線 DataFrame 轉換成指定格式 CSV
     ts_code: 股票代碼，例如 '2330.TW'
     """
-    stock = yf.Ticker(ts_code+'.TW')
+    stock = yf.Ticker(ts_code)
     df = stock.history(period="max")
     name = stock.info.get('shortName') or "找不到名稱"
     print(f'🏢 股票公司名稱: {name}')

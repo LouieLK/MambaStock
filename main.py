@@ -214,7 +214,7 @@ if __name__ == "__main__":
                         help='Num of layers')
     parser.add_argument('--n-test', type=int, default=365,
                         help='Size of test set')
-    parser.add_argument('--ts-code', type=str, default='2330',
+    parser.add_argument('--ts-code', type=str, default='2330.TW',
                         help='Stock code')  
     parser.add_argument('--seq-len', type=int, default=20,
                         help='size of sliding window')
