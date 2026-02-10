@@ -198,17 +198,29 @@ def predict_next_day(model, scaler, features, seq_len, device):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--use-cuda', action='store_true', default=False, help='Use CUDA')
-    parser.add_argument('--seed', type=int, default=1)
-    parser.add_argument('--epochs', type=int, default=50)
-    parser.add_argument('--lr', type=float, default=0.001) # 修正：學習率通常不用那麼大，改小一點比較穩
-    parser.add_argument('--wd', type=float, default=1e-5)
-    parser.add_argument('--hidden', type=int, default=32) # 修正：Hidden 加大一點
-    parser.add_argument('--layer', type=int, default=2)
-    parser.add_argument('--n-test', type=int, default=300)
-    parser.add_argument('--ts-code', type=str, default='2330')  
-    parser.add_argument('--seq-len', type=int, default=20)
-    parser.add_argument('--batch-size', type=int, default=64)
+    parser.add_argument('--use-cuda', action='store_true', default=False,
+                        help='CUDA training.')
+    parser.add_argument('--seed', type=int, default=1,
+                        help='Random seed.')
+    parser.add_argument('--epochs', type=int, default=50,
+                        help='Number of epochs to train.')
+    parser.add_argument('--lr', type=float, default=0.001,
+                        help='Learning rate.')
+    parser.add_argument('--wd', type=float, default=1e-5,
+                        help='Weight decay (L2 loss on parameters).')
+    parser.add_argument('--hidden', type=int, default=32,
+                        help='Dimension of representations')
+    parser.add_argument('--layer', type=int, default=2,
+                        help='Num of layers')
+    parser.add_argument('--n-test', type=int, default=365,
+                        help='Size of test set')
+    parser.add_argument('--ts-code', type=str, default='2330',
+                        help='Stock code')  
+    parser.add_argument('--seq-len', type=int, default=20,
+                        help='size of sliding window')
+    parser.add_argument('--batch-size', type=int, default=64,
+                        help='size of batch')
+
 
     args = parser.parse_args()
     args.cuda = args.use_cuda and torch.cuda.is_available()
