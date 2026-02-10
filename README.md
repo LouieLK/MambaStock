@@ -1,63 +1,76 @@
-# MambaStock: Selective state space model for stock prediction
+# MambaStock: Selective State Space Model for Stock Prediction
 
 [🇹🇼 繁體中文說明](README.zh-TW.md) | [🇺🇸 English](README.md)
 
-Mamba (Structured state space sequence models with selection mechanism and scan module, S6) has achieved remarkable success in sequence modeling tasks. This paper proposes a Mamba-based model to predict the stock price.
+**MambaStock** implements a stock price prediction model based on the **Mamba (S6)** architecture (Structured State Space Sequence Models). Mamba has achieved remarkable success in sequence modeling tasks, offering linear time complexity while maintaining the performance of Transformers.  
+This repository leverages historical stock data to predict future price trends using a **Sliding Window** approach and includes a dedicated inference step for forecasting the next trading day's price.
 
-## Requirements
+## **✨ Key Features**
 
-The code has been tested running under Python 3.7.4, with the following packages and their dependencies installed:
+* **Mamba Architecture**: Efficiently handles long time-series data with lower memory usage than Transformers.  
+* **Auto Data Fetching**: Integrated with yfinance to automatically download stock data (supports global tickers, e.g., 2330.TW, AAPL, NVDA).  
+* **Sliding Window**: Uses historical windows (e.g., past 20 days) to predict the next time step, preventing look-ahead bias.  
+* **Future Inference**: Automatically predicts the stock price for the upcoming trading day (T+1) after training.
+
+## **🛠️ Requirements**
+
+We use uv for high-speed dependency management and environment setup.
+
+### **1\. Installation**
+
+First, clone the repository:  
 ```
-numpy==1.16.5
-matplotlib==3.1.0
-sklearn==0.21.3
-pandas==0.25.1
-pytorch==1.7.1
+git clone https://github.com/LouieLK/MambaStock.git
+cd MambaStock
 ```
+### **2\. Setup Environment**
 
-The stock data used in this repository was downloaded from [TuShare](https://tushare.pro/). The stock data on [TuShare](https://tushare.pro/) are with public availability. Some code of the Mamba model is from https://github.com/alxndrTL/mamba.py
+Sync dependencies (this will automatically create a virtual environment and install PyTorch with CUDA support if configured):  
+```
+uv sync
+```
+## **🚀 Usage**
 
-## Usage
+You can run the training script directly using uv run. The script handles data downloading, preprocessing, training, and visualization automatically.
+
+### **With CUDA (Recommended)**
+```
+uv run python main.py --use-cuda
+```
+### **CPU Only**
+```
+uv run python main.py
+```
+### **Custom Training Example**
+
+Train on TSMC (2330.TW) with a 60-day sliding window:  
+uv run python main.py \--ts-code 2330.TW \--seq-len 60 \--use-cuda
+
+## **⚙️ Options**
+
+The model behavior can be customized using command-line arguments. Here is the full list of available options:
+
+| Argument | Type | Default | Description |
+| :---- | :---- | :---- | :---- |
+| \--use-cuda | Flag | False | Enable CUDA training (requires NVIDIA GPU). |
+| \--ts-code | str | 2330.TW | Stock ticker symbol (e.g., 2330.TW, AAPL). |
+| \--seq-len | int | 20 | Size of the sliding window (lookback period). |
+| \--epochs | int | 50 | Number of training epochs. |
+| \--batch-size | int | 64 | Batch size for training. |
+| \--lr | float | 0.001 | Learning rate. |
+| \--hidden | int | 32 | Dimension of the hidden state in Mamba layer. |
+| \--layer | int | 2 | Number of Mamba layers stacked. |
+| \--n-test | int | 365 | Number of days to use for the test set (backtesting). |
+| \--wd | float | 1e-5 | Weight decay (L2 regularization). |
+| \--seed | int | 1 | Random seed for reproducibility. |
+
+## **📚 Citation**
 
 ```
-python main.py
-```
-
-## Options
-
-We adopt an argument parser by package  `argparse` in Python, and the options for running code are defined as follow:
-
-```python
-parser = argparse.ArgumentParser()
-parser.add_argument('--use-cuda', default=False,
-                    help='CUDA training.')
-parser.add_argument('--seed', type=int, default=1, help='Random seed.')
-parser.add_argument('--epochs', type=int, default=100,
-                    help='Number of epochs to train.')
-parser.add_argument('--lr', type=float, default=0.01,
-                    help='Learning rate.')
-parser.add_argument('--wd', type=float, default=1e-5,
-                    help='Weight decay (L2 loss on parameters).')
-parser.add_argument('--hidden', type=int, default=16,
-                    help='Dimension of representations')
-parser.add_argument('--layer', type=int, default=2,
-                    help='Num of layers')
-parser.add_argument('--n-test', type=int, default=300,
-                    help='Size of test set')
-parser.add_argument('--ts-code', type=str, default='601988',
-                    help='Stock code')                    
-
-args = parser.parse_args()
-args.cuda = args.use_cuda and torch.cuda.is_available()
-```
-
-## Citation
-
-```
-@article{shi2024mamba,
-  title={MambaStock: Selective state space model for stock prediction},
-  author={Zhuangwei Shi},
-  journal={arXiv preprint arXiv:2402.18959},
-  year={2024},
-}
+@article{shi2024mamba,  
+  title={MambaStock: Selective state space model for stock prediction},  
+  author={Zhuangwei Shi},  
+  journal={arXiv preprint arXiv:2402.18959},  
+  year={2024},  
+}  
 ```
