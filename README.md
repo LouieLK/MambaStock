@@ -1,5 +1,7 @@
 # MambaStock: Selective state space model for stock prediction
 
+[🇹🇼 繁體中文說明](README.zh-TW.md) | [🇺🇸 English](README.md)
+
 Mamba (Structured state space sequence models with selection mechanism and scan module, S6) has achieved remarkable success in sequence modeling tasks. This paper proposes a Mamba-based model to predict the stock price.
 
 ## Requirements
