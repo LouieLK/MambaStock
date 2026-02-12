@@ -1,8 +1,13 @@
-# MambaStock: Selective State Space Model for Stock Prediction
+# MambaQuant: Production-Ready Stock Prediction with Mamba (S6)
 
 [🇹🇼 繁體中文說明](README.zh-TW.md) | [🇺🇸 English](README.md)
 
-**MambaStock** implements a stock price prediction model based on the **Mamba (S6)** architecture (Structured State Space Sequence Models). Mamba has achieved remarkable success in sequence modeling tasks, offering linear time complexity while maintaining the performance of Transformers.  
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![Powered by uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+[![Framework](https://img.shields.io/badge/PyTorch-Mamba-orange)](https://pytorch.org/)
+
+**MambaQuant** implements a stock price prediction model based on the **Mamba (S6)** architecture (Structured State Space Sequence Models). Mamba has achieved remarkable success in sequence modeling tasks, offering linear time complexity while maintaining the performance of Transformers.  
 This repository leverages historical stock data to predict future price trends using a **Sliding Window** approach and includes a dedicated inference step for forecasting the next trading day's price.
 
 ## **✨ Key Features**
@@ -12,6 +17,9 @@ This repository leverages historical stock data to predict future price trends u
 * **Sliding Window**: Uses historical windows (e.g., past 20 days) to predict the next time step, preventing look-ahead bias.  
 * **Future Inference**: Automatically predicts the stock price for the upcoming trading day (T+1) after training.
 
+## 📊 Results & Demo
+![Training Result Plot](assets/result_plot.png)
+
 ## **🛠️ Requirements**
 
 We use uv for high-speed dependency management and environment setup.
@@ -20,8 +28,8 @@ We use uv for high-speed dependency management and environment setup.
 
 First, clone the repository:  
 ```
-git clone https://github.com/LouieLK/MambaStock.git
-cd MambaStock
+git clone https://github.com/LouieLK/MambaQuant.git
+cd MambaQuant
 ```
 ### **2\. Setup Environment**
 
@@ -47,6 +55,9 @@ Train on TSMC (2330.TW) with a 60-day sliding window:
 ```
 uv run python main.py --ts-code 2330.TW --seq-len 60 --use-cuda
 ```
+### **Training Result**
+![Training Result Plot](assets/result_cli.png)
+
 ## **⚙️ Options**
 
 The model behavior can be customized using command-line arguments. Here is the full list of available options:

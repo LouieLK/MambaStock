@@ -1,8 +1,13 @@
-# MambaStock: Selective State Space Model for Stock Prediction
+# MambaQuant: 基於 Mamba 架構的全球股市預測工具 (支援台股/美股)
 
 [🇹🇼 繁體中文說明](README.zh-TW.md) | [🇺🇸 English](README.md)
 
-**MambaStock** 實作了一個基於 **Mamba (S6)** 架構（結構化狀態空間序列模型）的股價預測模型。Mamba 在序列建模任務中取得了顯著的成功，在保持 Transformer 效能的同時，提供了線性時間複雜度。  
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![Powered by uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+[![Framework](https://img.shields.io/badge/PyTorch-Mamba-orange)](https://pytorch.org/)
+
+**MambaQuant** 實作了一個基於 **Mamba (S6)** 架構（結構化狀態空間序列模型）的股價預測模型。Mamba 在序列建模任務中取得了顯著的成功，在保持 Transformer 效能的同時，提供了線性時間複雜度。  
 本儲存庫利用歷史股票數據，使用 **滑動視窗 (Sliding Window)** 方法來預測未來的價格趨勢，並包含一個專門的推論步驟，用於預測下一個交易日的價格。
 
 ## **✨ 主要功能**
@@ -12,6 +17,9 @@
 * **滑動視窗**：使用歷史視窗（例如：過去 20 天）來預測下一個時間步，防止前瞻偏差 (look-ahead bias)。  
 * **未來推論**：在訓練後自動預測下一個交易日 (T+1) 的股價。
 
+## 📊 結果展示
+![Training Result Plot](assets/result_plot.png)
+
 ## **🛠️ 需求**
 
 我們使用 uv 進行高速的依賴管理和環境設置。
@@ -20,8 +28,8 @@
 
 首先，複製 (clone) 儲存庫：  
 ```
-git clone https://github.com/LouieLK/MambaStock.git
-cd MambaStock
+git clone https://github.com/LouieLK/MambaQuant.git
+cd MambaQuant
 ```
 
 ### **2\. 設置環境**
@@ -49,6 +57,8 @@ uv run python main.py
 ```
 uv run python main.py --ts-code 2330.TW --seq-len 60 --use-cuda
 ```
+### **訓練結果**
+![Training Result Plot](assets/result_cli.png)
 
 ## **⚙️ 選項**
 
