@@ -1,0 +1,8 @@
+# .dockerignore
+.venv/
+.git/
+.github/
+assets/
+__pycache__/
+*.pyc
+data/
